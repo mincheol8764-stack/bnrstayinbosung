@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nanum+Myeongjo:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+@theme {
+  --font-serif: "Playfair Display", "Nanum Myeongjo", serif;
+  --font-sans: "Montserrat", sans-serif;
+  
+  --color-brand-bg: #f5f2ed;
+  --color-brand-ink: #1a1a1a;
+  --color-brand-muted: #5a5a40;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-ink font-sans antialiased font-light;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-serif tracking-tight;
+  }
+}
+
+/* Custom vertical text utility */
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  height: 100vh;
+}
