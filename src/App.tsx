@@ -126,7 +126,7 @@ export default function App() {
             className="absolute inset-0 z-0"
           >
             <img 
-              src="https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20260331_124%2F1774886247193I5KAo_JPEG%2FDSC02289.jpg" 
+              src="https://i.imgur.com/4OArESb.jpeg" 
               alt="BNR stay Hero"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
