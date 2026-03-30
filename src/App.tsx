@@ -65,17 +65,17 @@ export default function App() {
   return (
     <div className="relative">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 mix-blend-difference text-white">
+      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 text-white">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`flex flex-col items-start transition-all duration-500 ${isAtTop ? 'drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]' : ''}`}
+          className="flex flex-col items-start drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
         >
           <span className="text-xl font-serif tracking-[0.3em] font-light uppercase">BNRSTAY</span>
-          <span className="text-[9px] tracking-[0.2em] font-serif opacity-60 -mt-1">복내리스테이</span>
+          <span className="text-[9px] tracking-[0.2em] font-serif opacity-80 -mt-1">복내리스테이</span>
         </motion.div>
         
-        <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-medium">
+        <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
           {SECTIONS.map((section) => (
             <a 
               key={section.id} 
@@ -89,7 +89,7 @@ export default function App() {
         </div>
 
         <button 
-          className="md:hidden"
+          className="md:hidden drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -131,6 +131,8 @@ export default function App() {
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
+            {/* Subtle top gradient for header visibility */}
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/40 to-transparent pointer-events-none" />
           </motion.div>
           
           <div className="relative z-10 text-center text-white px-4">
