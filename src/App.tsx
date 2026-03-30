@@ -49,6 +49,19 @@ export default function App() {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const container = containerRef.current;
+    const element = document.getElementById(id);
+    if (container && element) {
+      container.scrollTo({
+        top: element.offsetTop,
+        behavior: "smooth",
+      });
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className="relative">
       {/* Navigation */}
@@ -67,6 +80,7 @@ export default function App() {
             <a 
               key={section.id} 
               href={`#${section.id}`}
+              onClick={(e) => scrollToSection(e, section.id)}
               className="hover:opacity-50 transition-opacity"
             >
               {section.title}
@@ -93,7 +107,7 @@ export default function App() {
             <a 
               key={section.id} 
               href={`#${section.id}`}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => scrollToSection(e, section.id)}
               className="text-3xl font-serif italic"
             >
               {section.title}
@@ -132,7 +146,17 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5 }}
-              className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce"
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer"
+              onClick={(e) => {
+                const container = containerRef.current;
+                const element = document.getElementById("philosophy");
+                if (container && element) {
+                  container.scrollTo({
+                    top: element.offsetTop,
+                    behavior: "smooth",
+                  });
+                }
+              }}
             >
               <ChevronDown size={32} strokeWidth={1} />
             </motion.div>
