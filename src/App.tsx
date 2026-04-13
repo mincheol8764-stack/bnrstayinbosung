@@ -661,17 +661,17 @@ function AppContent() {
                 </div>
               </motion.div>
             ))}
-          </div>
 
-          {/* Mobile Scroll Indicator Arrow */}
-          <div className="md:hidden flex justify-center items-center mt-6 gap-2 text-brand-ink/30">
-            <span className="text-[9px] tracking-[0.2em] uppercase font-medium">Swipe to explore</span>
-            <motion.div
-              animate={{ x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-            >
-              <ChevronRight size={14} />
-            </motion.div>
+            {/* Floating Mobile Scroll Indicator Arrow */}
+            <div className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+              <motion.div
+                animate={{ x: [0, 8, 0], opacity: [0.4, 1, 0.4] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30 text-white shadow-lg"
+              >
+                <ChevronRight size={20} />
+              </motion.div>
+            </div>
           </div>
         </section>
 
