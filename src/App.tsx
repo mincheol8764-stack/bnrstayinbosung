@@ -4,7 +4,7 @@
  */
 
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { MapPin, Instagram, Mail, ChevronDown, Menu, X, Edit2, Save, Settings, Image as ImageIcon, Link as LinkIcon, LogIn, LogOut, AlertCircle } from "lucide-react";
+import { MapPin, Instagram, Mail, ChevronDown, ChevronRight, Menu, X, Edit2, Save, Settings, Image as ImageIcon, Link as LinkIcon, LogIn, LogOut, AlertCircle } from "lucide-react";
 import { useState, useRef, useEffect, Component, ErrorInfo, ReactNode } from "react";
 import { auth, db } from "./firebase";
 import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut, User } from "firebase/auth";
@@ -470,12 +470,22 @@ function AppContent() {
           ))}
         </div>
 
-        <button 
-          className="md:hidden drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-4">
+          <a 
+            href={config.links.booking}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] tracking-[0.1em] font-medium border border-white/40 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md drop-shadow-lg"
+          >
+            예약
+          </a>
+          <button 
+            className="drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
@@ -623,7 +633,7 @@ function AppContent() {
             </p>
           </div>
 
-          <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 h-[60vh] md:h-[60vh] overflow-x-auto md:overflow-x-visible snap-x snap-mandatory no-scrollbar -mx-8 px-8 md:mx-0 md:px-0">
+          <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 h-[60vh] md:h-[60vh] overflow-x-auto md:overflow-x-visible snap-x snap-mandatory no-scrollbar -mx-8 px-8 md:mx-0 md:px-0 relative">
             {config.spaceImages.map((space, idx) => (
               <motion.div 
                 key={idx}
@@ -651,6 +661,17 @@ function AppContent() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Mobile Scroll Indicator Arrow */}
+          <div className="md:hidden flex justify-center items-center mt-6 gap-2 text-brand-ink/30">
+            <span className="text-[9px] tracking-[0.2em] uppercase font-medium">Swipe to explore</span>
+            <motion.div
+              animate={{ x: [0, 5, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+            >
+              <ChevronRight size={14} />
+            </motion.div>
           </div>
         </section>
 
