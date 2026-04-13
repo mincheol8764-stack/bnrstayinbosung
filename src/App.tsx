@@ -23,7 +23,9 @@ interface SiteConfig {
     naver: string;
     instagram: string;
     address: string;
+    addressLink: string;
     booking: string;
+    directBooking: string;
   };
 }
 
@@ -79,7 +81,9 @@ const DEFAULT_CONFIG: SiteConfig = {
     naver: "https://naver.me/5Iib7icp",
     instagram: "https://www.instagram.com/bnrstay_official",
     address: "전남 보성군 복내면 원봉길 41-10",
+    addressLink: "#",
     booking: "https://m.booking.naver.com/booking/3/bizes/1132296/items/5846165?area=bmp&lang=ko&map-search=1&service-target=map-pc&tab=book&theme=place",
+    directBooking: "#",
   }
 };
 
@@ -292,7 +296,9 @@ function AppContent() {
       if (editingItem.key === "naver") newConfig.links.naver = tempValue;
       if (editingItem.key === "instagram") newConfig.links.instagram = tempValue;
       if (editingItem.key === "address") newConfig.links.address = tempValue;
+      if (editingItem.key === "addressLink") newConfig.links.addressLink = tempValue;
       if (editingItem.key === "booking") newConfig.links.booking = tempValue;
+      if (editingItem.key === "directBooking") newConfig.links.directBooking = tempValue;
     }
     
     saveConfig(newConfig);
@@ -471,14 +477,20 @@ function AppContent() {
         </div>
 
         <div className="md:hidden flex items-center gap-4">
-          <a 
-            href={config.links.booking}
+          <motion.a 
+            href={config.links.directBooking}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[10px] tracking-[0.1em] font-medium border border-white/40 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md drop-shadow-lg"
+            animate={{ 
+              backgroundColor: ["rgba(26, 26, 26, 0.8)", "rgba(255, 255, 255, 0.2)", "rgba(26, 26, 26, 0.8)"],
+              color: ["#ffffff", "#1a1a1a", "#ffffff"],
+              borderColor: ["rgba(255, 255, 255, 0.4)", "rgba(26, 26, 26, 0.4)", "rgba(255, 255, 255, 0.4)"]
+            }}
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+            className="text-[10px] tracking-[0.1em] font-medium border px-4 py-2 rounded-full backdrop-blur-md shadow-lg"
           >
-            예약
-          </a>
+            바로예약
+          </motion.a>
           <button 
             className="drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -667,9 +679,11 @@ function AppContent() {
               <motion.div
                 animate={{ x: [0, 8, 0], opacity: [0.4, 1, 0.4] }}
                 transition={{ repeat: Infinity, duration: 2 }}
-                className="bg-white/20 backdrop-blur-md p-3 rounded-full border border-white/30 text-white shadow-lg"
+                className="bg-white/20 backdrop-blur-md p-2 rounded-full border border-white/30 text-white shadow-lg flex items-center -space-x-3"
               >
-                <ChevronRight size={20} />
+                <ChevronRight size={18} />
+                <ChevronRight size={18} />
+                <ChevronRight size={18} />
               </motion.div>
             </div>
           </div>
@@ -688,10 +702,42 @@ function AppContent() {
                   <MapPin className="mt-1 text-white/20" size={16} />
                   <div>
                     <p className="text-[9px] tracking-[0.4em] text-white/30 mb-2">주소</p>
-                    <p className="text-sm tracking-tight whitespace-nowrap">{config.links.address}</p>
+                    <a 
+                      href={config.links.addressLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-sm tracking-tight whitespace-nowrap hover:opacity-50 transition-opacity underline underline-offset-4 decoration-white/10"
+                    >
+                      {config.links.address}
+                    </a>
                   </div>
                   {isAdmin && (
-                    <button onClick={() => handleEdit("link", "address", config.links.address)} className="absolute -right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 text-white/40 hover:text-white transition-all">
+                    <div className="absolute -right-12 top-1/2 -translate-y-1/2 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                      <button onClick={() => handleEdit("link", "address", config.links.address)} className="text-white/40 hover:text-white" title="주소 텍스트 수정">
+                        <Edit2 size={14} />
+                      </button>
+                      <button onClick={() => handleEdit("link", "addressLink", config.links.addressLink)} className="text-white/40 hover:text-white" title="주소 링크 수정">
+                        <LinkIcon size={14} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex items-start gap-6 relative group">
+                  <LinkIcon className="mt-1 text-white/20" size={16} />
+                  <div>
+                    <p className="text-[9px] tracking-[0.4em] text-white/30 mb-2">예약</p>
+                    <a 
+                      href={config.links.directBooking} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-sm tracking-tight hover:opacity-50 transition-opacity underline underline-offset-4 decoration-white/10"
+                    >
+                      바로 예약하기
+                    </a>
+                  </div>
+                  {isAdmin && (
+                    <button onClick={() => handleEdit("link", "directBooking", config.links.directBooking)} className="absolute -right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 text-white/40 hover:text-white transition-all">
                       <Edit2 size={14} />
                     </button>
                   )}
@@ -700,14 +746,14 @@ function AppContent() {
                 <div className="flex items-start gap-6 relative group">
                   <Mail className="mt-1 text-white/20" size={16} />
                   <div>
-                    <p className="text-[9px] tracking-[0.4em] text-white/30 mb-2">예약</p>
+                    <p className="text-[9px] tracking-[0.4em] text-white/30 mb-2">상세 정보</p>
                     <a 
                       href={config.links.naver} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-sm tracking-tight hover:opacity-50 transition-opacity underline underline-offset-4 decoration-white/10"
                     >
-                      네이버 예약하기
+                      숙소 더 알아보기
                     </a>
                   </div>
                   {isAdmin && (
@@ -727,7 +773,7 @@ function AppContent() {
                       rel="noopener noreferrer"
                       className="text-sm tracking-tight hover:opacity-50 transition-opacity"
                     >
-                      @bnrstay_official
+                      인스타 구경하기
                     </a>
                   </div>
                   {isAdmin && (
