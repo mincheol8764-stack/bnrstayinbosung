@@ -1,0 +1,41 @@
+{
+  "entities": {
+    "SiteConfig": {
+      "title": "Site Configuration",
+      "description": "Global configuration for the website including images and links.",
+      "type": "object",
+      "properties": {
+        "heroImage": { "type": "string", "format": "uri" },
+        "philosophyImage": { "type": "string", "format": "uri" },
+        "spaceImages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": { "type": "string", "format": "uri" },
+              "title": { "type": "string" },
+              "desc": { "type": "string" }
+            },
+            "required": ["url"]
+          }
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "naver": { "type": "string", "format": "uri" },
+            "instagram": { "type": "string", "format": "uri" },
+            "address": { "type": "string" }
+          },
+          "required": ["naver", "instagram", "address"]
+        }
+      },
+      "required": ["heroImage", "philosophyImage", "spaceImages", "links"]
+    }
+  },
+  "firestore": {
+    "config/main": {
+      "schema": "SiteConfig",
+      "description": "The main site configuration document."
+    }
+  }
+}
